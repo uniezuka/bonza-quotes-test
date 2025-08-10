@@ -1,4 +1,3 @@
-<?php ?>
 <div class="wrap">
     <h1><?php echo esc_html__( 'Bonza Quotes', 'bonza_quote' ); ?></h1>
 

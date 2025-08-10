@@ -5,7 +5,7 @@ A simple WordPress plugin that provides a quote request form via shortcode and a
 ## Project Info
 
 - **Contributors**: uniezuka
-- **Donate**: `https://github.com/uniezuka/`
+- **Donate**: [GitHub profile](https://github.com/uniezuka/)
 - **Tags**: forms, quotes, crm, admin
 - **Requires WordPress**: 6.0+
 - **Tested up to**: 6.6
@@ -25,6 +25,13 @@ Bonza Quote Form lets you collect quote requests on any page using a shortcode a
 - **Security best practices**: nonces, capability checks, prepared statements, output escaping
 - **Translation-ready** (`bonza_quote` text domain)
 - **Developer hooks and filters** for extensibility
+
+### Admin UI overview
+
+- Go to “Bonza Quotes” in the admin sidebar to view all submissions
+- Use the search box (top-right) to search by name, email, or service type
+- Use the row actions to Approve or Reject a submission
+- Pagination controls appear below the list when there are many items
 
 ### How it works
 
@@ -61,6 +68,24 @@ add_filter( 'bonza_quote/service_types', function( $types ) {
 } );
 ```
 
+## Database schema
+
+The plugin creates a table named `{$wpdb->prefix}bonza_quotes` with the following columns:
+
+- `id` bigint unsigned, primary key, auto-increment
+- `name` varchar(191) not null
+- `email` varchar(191) not null
+- `service_type` varchar(100) not null
+- `notes` text null
+- `status` varchar(20) not null default `pending`
+- `created_at` datetime not null
+- `updated_at` datetime not null
+
+### Indexes
+
+- Key on `status`
+- Key on `created_at`
+
 ## Developer Reference
 
 ### Actions
@@ -83,20 +108,54 @@ Go to “Bonza Quotes” in the WordPress admin.
 
 Yes. Use the `bonza_quote/service_types` filter shown above.
 
-### Does uninstall remove data?
+### Uninstall behavior
 
-Yes. Uninstall drops the custom table `{$wpdb->prefix}bonza_quotes`.
+- When the plugin is uninstalled (not merely deactivated), it drops the `bonza_quotes` table.
+- This is handled in `uninstall.php`. Ensure `WP_UNINSTALL_PLUGIN` is defined by uninstalling via the WordPress Plugins screen.
 
 ## Screenshots
 
 1. Frontend quote form
 2. Admin list table with approve/reject actions
 
+## Development: Running Tests
+
+This repository includes a minimal PHPUnit setup focused on unit-testing the repository and activation SQL without requiring a full WordPress bootstrap.
+
+### Prerequisites
+
+1. PHP 8.0+ recommended
+2. Composer installed
+
+### Install dependencies and run tests
+
+```sh
+composer install
+composer test
+```
+
+Or, run PHPUnit directly (if installed globally):
+
+```sh
+phpunit
+```
+
+Notes:
+
+- The tests use a lightweight fake `$wpdb` and small shims for common WP functions.
+- No database is created; SQL is captured from the activation routine for verification.
+
 ## Changelog
 
 ### 1.0.0
 
 - Initial release: shortcode form, custom table, admin list with approve/reject, basic search and pagination
+
+## Upgrade Notice
+
+### 1.0.0
+
+Initial release.
 
 ## License
 
