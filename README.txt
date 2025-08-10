@@ -93,6 +93,32 @@ Yes. Uninstall drops the custom table `{$wpdb->prefix}bonza_quotes`.
 = 1.0.0 =
 * Initial release: shortcode form, custom table, admin list with approve/reject, basic search and pagination
 
+== Development: Running Tests ==
+
+This repository includes a minimal PHPUnit setup focused on unit-testing the repository and activation SQL without requiring a full WordPress bootstrap.
+
+Prerequisites:
+
+1. PHP 8.0+ recommended
+2. Composer with phpunit available globally or via project dev dependency
+
+Run tests:
+
+```
+vendor/bin/phpunit
+```
+
+or, if you have phpunit globally installed:
+
+```
+phpunit
+```
+
+Notes:
+
+- The tests use a lightweight fake `$wpdb` and small shims for common WP functions.
+- No database is created; SQL is captured from the activation routine for verification.
+
 == Upgrade Notice ==
 
 = 1.0.0 =
