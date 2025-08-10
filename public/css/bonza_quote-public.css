@@ -1,0 +1,136 @@
+/**
+ * Bonza Quote – Public Styles
+ */
+
+:root {
+  --bonza-bg: #ffffff;
+  --bonza-surface: #f8fafc;
+  --bonza-border: #e5e7eb;
+  --bonza-text: #0f172a;
+  --bonza-muted: #6b7280;
+  --bonza-primary: #2563eb;
+  --bonza-primary-dark: #1d4ed8;
+  --bonza-success-bg: #ecfdf5;
+  --bonza-success-text: #047857;
+  --bonza-error-bg: #fef2f2;
+  --bonza-error-text: #b91c1c;
+  --bonza-radius: 12px;
+  --bonza-shadow: 0 10px 25px rgba(2, 6, 23, 0.08);
+}
+
+/* Force consistent light appearance for form controls regardless of OS theme */
+.bonza-quote-form input,
+.bonza-quote-form select,
+.bonza-quote-form textarea,
+.bonza-quote-form button {
+  color-scheme: light;
+}
+
+.bonza-quote-form {
+  background: transparent; /* simpler look: no card background */
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  color: #111827; /* high-contrast body text */
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.bonza-form-title {
+  margin: 0 0 6px;
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.bonza-form-subtitle {
+  margin: 0 0 18px;
+  color: #374151; /* darker for readability */
+}
+
+.bonza-quote-form form { display: block; }
+.bonza-quote-form form p { margin: 0 0 16px; display: block; width: 100%; }
+
+.bonza-quote-form label {
+  display: inline-block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.bonza-quote-form input[type="text"],
+.bonza-quote-form input[type="email"],
+.bonza-quote-form select,
+.bonza-quote-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #ffffff !important; /* ensure white fields */
+  color: #111827 !important; /* high-contrast input text */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  display: block; /* prevent side-by-side inline behavior */
+}
+
+.bonza-quote-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.bonza-quote-form input::placeholder,
+.bonza-quote-form textarea::placeholder {
+  color: #6b7280; /* medium gray, readable */
+}
+
+.bonza-quote-form input:focus,
+.bonza-quote-form select:focus,
+.bonza-quote-form textarea:focus {
+  outline: none;
+  border-color: var(--bonza-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.bonza-btn-primary,
+.bonza-quote-form button[type="submit"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: var(--bonza-primary); /* simpler solid color */
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.05s ease;
+  box-shadow: none;
+}
+
+.bonza-quote-form button[type="submit"]:hover,
+.bonza-btn-primary:hover {
+  background: var(--bonza-primary-dark);
+}
+
+.bonza-quote-form button[type="submit"]:active,
+.bonza-btn-primary:active {
+  transform: translateY(1px);
+}
+
+.bonza-quote-form .notice {
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 0 0 16px;
+}
+
+.bonza-quote-form .notice-success {
+  background: var(--bonza-success-bg);
+  color: var(--bonza-success-text);
+  border: 1px solid color-mix(in srgb, var(--bonza-success-text) 25%, transparent);
+}
+
+.bonza-quote-form .notice-error {
+  background: var(--bonza-error-bg);
+  color: var(--bonza-error-text);
+  border: 1px solid color-mix(in srgb, var(--bonza-error-text) 25%, transparent);
+}
+
+/* No grid/two-column layout to avoid overlapping with theme styles */
