@@ -24,6 +24,13 @@ Features:
 * Translation-ready (`bonza_quote` text domain)
 * Developer hooks and filters for extensibility
 
+Admin UI overview:
+
+- Go to “Bonza Quotes” in the admin sidebar to view all submissions
+- Use the search box (top-right) to search by name, email, or service type
+- Use the row actions to Approve or Reject a submission
+- Pagination controls appear below the list when there are many items
+
 How it works:
 
 * On activation, the plugin creates a table `{$wpdb->prefix}bonza_quotes` to store submissions
@@ -59,6 +66,24 @@ add_filter( 'bonza_quote/service_types', function( $types ) {
 } );
 ```
 
+Database schema:
+
+The plugin creates a table named `{$wpdb->prefix}bonza_quotes` with the following columns:
+
+- `id` bigint unsigned, primary key, auto-increment
+- `name` varchar(191) not null
+- `email` varchar(191) not null
+- `service_type` varchar(100) not null
+- `notes` text null
+- `status` varchar(20) not null default `pending`
+- `created_at` datetime not null
+- `updated_at` datetime not null
+
+Indexes:
+
+- Key on `status`
+- Key on `created_at`
+
 Developer hooks:
 
 * Action: `bonza_quote/submitted` fires after a quote is saved — params: `(int $quote_id, array $data)`
@@ -83,6 +108,11 @@ Yes. Use the `bonza_quote/service_types` filter shown above.
 
 Yes. Uninstall drops the custom table `{$wpdb->prefix}bonza_quotes`.
 
+Uninstall behavior:
+
+- When the plugin is uninstalled (not merely deactivated), it drops the `bonza_quotes` table.
+- This is handled in `uninstall.php`. Ensure `WP_UNINSTALL_PLUGIN` is defined by uninstalling via WordPress Plugins screen.
+
 == Screenshots ==
 
 1. Frontend quote form
@@ -100,15 +130,16 @@ This repository includes a minimal PHPUnit setup focused on unit-testing the rep
 Prerequisites:
 
 1. PHP 8.0+ recommended
-2. Composer with phpunit available globally or via project dev dependency
+2. Composer installed
 
-Run tests:
+Install dependencies and run tests:
 
 ```
-vendor/bin/phpunit
+composer install
+composer test
 ```
 
-or, if you have phpunit globally installed:
+Or, run PHPUnit directly (if installed globally):
 
 ```
 phpunit

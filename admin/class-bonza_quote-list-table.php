@@ -56,7 +56,6 @@ if ( ! class_exists( 'Bonza_Quote_List_Table' ) ) {
                 'id'     => (int) $item['id'],
             ), admin_url( 'admin.php' ) ), 'bonza_quote_action_' . (int) $item['id'] );
 
-            // Use unique keys to avoid collisions with core CSS/JS that may hide elements with classes like 'approve'.
             $actions = array(
                 'bonza_approve' => '<a href="' . esc_url( $approve_url ) . '">' . esc_html__( 'Approve', 'bonza_quote' ) . '</a>',
                 'bonza_reject'  => '<a href="' . esc_url( $reject_url ) . '">' . esc_html__( 'Reject', 'bonza_quote' ) . '</a>',

@@ -1,12 +1,3 @@
-<?php
-/**
- * Frontend form partial for submitting quotes
- *
- * Expects $data = [ 'types' => array, 'error' => string, 'success' => bool ]
- *
- * @package Bonza_quote
- */
-?>
 <div class="bonza-quote-form">
     <h2 class="bonza-form-title"><?php echo esc_html__( 'Request a Quote', 'bonza_quote' ); ?></h2>
     <p class="bonza-form-subtitle"><?php echo esc_html__( 'Tell us a bit about your project and we’ll get back to you ASAP.', 'bonza_quote' ); ?></p>

@@ -85,10 +85,8 @@ if ( ! class_exists( 'Bonza_Quote_Quote_Repository' ) ) {
             $sql_items = "SELECT * FROM {$table} {$where_sql} ORDER BY created_at DESC LIMIT %d OFFSET %d";
             $sql_count = "SELECT COUNT(*) FROM {$table} {$where_sql}";
 
-            // Always prepare items (always has two %d placeholders)
             $items = $wpdb->get_results( $wpdb->prepare( $sql_items, array_merge( $params, array( $per_page, $offset ) ) ), ARRAY_A );
 
-            // Prepare count only when there are where params; otherwise query directly
             if ( ! empty( $params ) ) {
                 $total = (int) $wpdb->get_var( $wpdb->prepare( $sql_count, $params ) );
             } else {

@@ -16,9 +16,7 @@ if ( ! class_exists( 'Bonza_Quote_Notifications' ) ) {
             }
             return strip_tags( (string) $text );
         }
-        /** Send an email notification to the site admin when a new quote is submitted. */
         public function send_admin_email_on_submission( $quote_id, $data ) {
-            // Bail in non-WordPress linting environments.
             if ( ! function_exists( 'get_option' ) || ! function_exists( 'wp_mail' ) ) {
                 return;
             }

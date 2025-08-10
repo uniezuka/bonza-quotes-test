@@ -1,18 +1,4 @@
-<?php
-
-/**
- * Provide a admin area view for the plugin
- *
- * This file is used to markup the admin-facing aspects of the plugin.
- *
- * @link       https://github.com/uniezuka
- * @since      1.0.0
- *
- * @package    Bonza_quote
- * @subpackage Bonza_quote/admin/partials
- */
-?>
-
+<?php ?>
 <div class="wrap">
     <h1><?php echo esc_html__( 'Bonza Quotes', 'bonza_quote' ); ?></h1>
 

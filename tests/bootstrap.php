@@ -1,12 +1,12 @@
 <?php
-// Minimal bootstrap to unit-test repository logic without full WordPress.
+// Minimal bootstrap for repository tests without full WordPress.
 
 // Define ABSPATH for includes that expect it. Point to tests/ so we can stub wp-admin includes.
 if ( ! defined( 'ABSPATH' ) ) {
     define( 'ABSPATH', __DIR__ . DIRECTORY_SEPARATOR );
 }
 
-// Very small shims for core WP functions used in the classes.
+// Small shims for core WP functions used in the classes.
 if ( ! function_exists( '__' ) ) {
     function __( $text, $domain = null ) { return $text; }
 }
@@ -44,7 +44,7 @@ if ( ! function_exists( 'absint' ) ) {
 }
 if ( ! function_exists( 'wp_kses_post' ) ) {
     function wp_kses_post( $content ) {
-        // Allow a minimal set of tags for testing. In real WP this is richer.
+        // Allow a minimal set of tags for testing.
         return strip_tags( (string) $content, '<a><br><em><strong><p>' );
     }
 }
