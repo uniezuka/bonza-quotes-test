@@ -1,116 +1,26 @@
 <?php
 
-/**
- * The public-facing functionality of the plugin.
- *
- * @link       https://github.com/uniezuka
- * @since      1.0.0
- *
- * @package    Bonza_quote
- * @subpackage Bonza_quote/public
- */
-
-/**
- * The public-facing functionality of the plugin.
- *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the public-facing stylesheet and JavaScript.
- *
- * @package    Bonza_quote
- * @subpackage Bonza_quote/public
- * @author     J Lorenzo <junie.lorenzo@gmail.com>
- */
 class Bonza_quote_Public {
+    private $plugin_name;
+    private $version;
 
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
-	private $plugin_name;
+    public function __construct( $plugin_name, $version ) {
+        $this->plugin_name = $plugin_name;
+        $this->version     = $version;
+    }
 
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
-	private $version;
+    public function enqueue_styles() {
+        wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bonza_quote-public.css', array(), $this->version, 'all' );
+    }
 
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
-	 */
-	public function __construct( $plugin_name, $version ) {
+    public function enqueue_scripts() {
+        wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bonza_quote-public.js', array( 'jquery' ), $this->version, false );
+    }
 
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-
-	}
-
-	/**
-	 * Register the stylesheets for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Bonza_quote_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Bonza_quote_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bonza_quote-public.css', array(), $this->version, 'all' );
-
-	}
-
-	/**
-	 * Register the JavaScript for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_scripts() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Bonza_quote_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Bonza_quote_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bonza_quote-public.js', array( 'jquery' ), $this->version, false );
-
-	}
-
-    /**
-     * Register the frontend shortcode.
-     */
     public function register_shortcodes() {
         add_shortcode( 'bonza_quote_form', array( $this, 'render_quote_form' ) );
     }
 
-    /**
-     * Handle form submission early on template_redirect
-     */
     public function maybe_handle_submission() {
         if ( ! isset( $_POST['bonza_quote_nonce'] ) ) {
             return;
@@ -139,11 +49,6 @@ class Bonza_quote_Public {
         exit;
     }
 
-    /**
-     * Render the quote form shortcode.
-     *
-     * @return string
-     */
     public function render_quote_form() {
         $error   = isset( $_GET['bonza_quote_error'] ) ? sanitize_text_field( wp_unslash( $_GET['bonza_quote_error'] ) ) : '';
         $success = isset( $_GET['bonza_quote_submitted'] );

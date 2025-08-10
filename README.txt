@@ -22,12 +22,14 @@ Features:
 * Admin page “Bonza Quotes” to list, search, paginate, and approve/reject submissions
 * Security best practices: nonces, capability checks, prepared statements, output escaping
 * Translation-ready (`bonza_quote` text domain)
+* Developer hooks and filters for extensibility
 
 How it works:
 
 * On activation, the plugin creates a table `{$wpdb->prefix}bonza_quotes` to store submissions
 * Visitors submit the form; valid entries are saved as `pending` and a success message is shown
 * Administrators can approve or reject entries from the “Bonza Quotes” menu
+* On new submission, the site admin receives an email notification (subject and body are filterable)
 
 == Installation ==
 
@@ -61,6 +63,11 @@ Developer hooks:
 
 * Action: `bonza_quote/submitted` fires after a quote is saved — params: `(int $quote_id, array $data)`
 * Action: `bonza_quote/status_changed` fires when status changes — params: `(int $quote_id, string $old, string $new)`
+
+Email filters:
+
+* Filter: `bonza_quote/admin_email_subject` — `(string $subject, int $quote_id, array $data)`
+* Filter: `bonza_quote/admin_email_body` — `(string $body, int $quote_id, array $data)`
 
 == Frequently Asked Questions ==
 

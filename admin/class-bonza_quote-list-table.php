@@ -1,20 +1,12 @@
 <?php
 
-/**
- * Bonza Quote List Table (WP_List_Table)
- *
- * @package Bonza_quote
- */
-
 if ( ! class_exists( 'Bonza_Quote_List_Table' ) ) {
-    // Ensure WP_List_Table is loaded.
     if ( ! class_exists( 'WP_List_Table' ) ) {
         require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
     }
 
     class Bonza_Quote_List_Table extends WP_List_Table {
 
-        /** @var Bonza_Quote_Quote_Repository */
         private $repository;
 
         public function __construct() {
@@ -146,7 +138,6 @@ if ( ! class_exists( 'Bonza_Quote_List_Table' ) ) {
                 }
             }
 
-            // Avoid redirect to prevent header issues if output started; set notice params directly.
             $_GET['bulk']  = $new_status;
             $_GET['count'] = $updated;
             return;

@@ -1,31 +1,12 @@
 <?php
 
-/**
- * Quote Repository - Data access for bonza quotes
- *
- * @package Bonza_quote
- * @subpackage Bonza_quote/includes
- */
-
 if ( ! class_exists( 'Bonza_Quote_Quote_Repository' ) ) {
     class Bonza_Quote_Quote_Repository {
-
-        /**
-         * Get table name with prefix
-         *
-         * @return string
-         */
         public static function get_table_name() {
             global $wpdb;
             return $wpdb->prefix . 'bonza_quotes';
         }
 
-        /**
-         * Insert a new quote
-         *
-         * @param array $data { name, email, service_type, notes }
-         * @return int|WP_Error Inserted row ID or WP_Error
-         */
         public function insert_quote( array $data ) {
             global $wpdb;
 
@@ -61,12 +42,7 @@ if ( ! class_exists( 'Bonza_Quote_Quote_Repository' ) ) {
 
             $quote_id = (int) $wpdb->insert_id;
 
-            /**
-             * Action fired after a quote is submitted.
-             *
-             * @param int   $quote_id
-             * @param array $data
-             */
+            /** Action fired after a quote is submitted. */
             do_action( 'bonza_quote/submitted', $quote_id, array(
                 'name'         => $name,
                 'email'        => $email,
@@ -78,12 +54,6 @@ if ( ! class_exists( 'Bonza_Quote_Quote_Repository' ) ) {
             return $quote_id;
         }
 
-        /**
-         * Get quotes with optional search and pagination
-         *
-         * @param array $args { search, status, paged, per_page }
-         * @return array { items: array, total: int }
-         */
         public function get_quotes( array $args = array() ) {
             global $wpdb;
             $table = self::get_table_name();
@@ -131,13 +101,6 @@ if ( ! class_exists( 'Bonza_Quote_Quote_Repository' ) ) {
             );
         }
 
-        /**
-         * Update quote status
-         *
-         * @param int    $id
-         * @param string $new_status approved|rejected|pending
-         * @return bool|WP_Error
-         */
         public function update_status( $id, $new_status ) {
             global $wpdb;
             $id         = absint( $id );
@@ -167,13 +130,7 @@ if ( ! class_exists( 'Bonza_Quote_Quote_Repository' ) ) {
                 return new WP_Error( 'db_update_error', __( 'Failed to update status.', 'bonza_quote' ) );
             }
 
-            /**
-             * Action fired when a quote status changes.
-             *
-             * @param int    $quote_id
-             * @param string $old_status
-             * @param string $new_status
-             */
+            /** Action fired when a quote status changes. */
             do_action( 'bonza_quote/status_changed', $id, (string) $current, $new_status );
 
             return true;
